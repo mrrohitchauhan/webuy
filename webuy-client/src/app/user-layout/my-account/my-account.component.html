@@ -1,0 +1,47 @@
+<div id="all">
+  <div id="content">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <!-- breadcrumb-->
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li aria-current="page" class="breadcrumb-item active">
+                My account
+              </li>
+            </ol>
+          </nav>
+        </div>
+        <div class="col-lg-3">
+          <div class="card sidebar-menu">
+            <div class="card-header">
+              <h3 class="h4 card-title">Customer section</h3>
+            </div>
+            <div class="card-body">
+              <ul class="nav nav-pills flex-column">
+                <a
+                  [routerLink]="['/webuy/account/profile']"
+                  routerLinkActive="active"
+                  class="nav-link"><i class="fa fa-user"></i> My account</a>
+                <a
+                  [routerLink]="['/webuy/account/orders']"
+                  routerLinkActive="active"
+                  class="nav-link"
+                  ><i class="fa fa-list"></i> My orders</a
+                >
+                <!-- <a class="nav-link"><i class="fa fa-heart"></i> My wishlist</a> -->
+                <a href="javascript:void(0)" (click)="signOut()" class="nav-link"
+                  ><i class="fa fa-sign-out"></i> Logout</a
+                >
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-9">
+          <router-outlet> </router-outlet>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

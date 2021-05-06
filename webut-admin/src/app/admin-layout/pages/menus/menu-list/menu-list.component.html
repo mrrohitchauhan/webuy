@@ -1,0 +1,78 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div
+        class="card-header d-flex justify-content-between align-items-center"
+      >
+        <div class="d-flex justify-content-center align-items-center">
+          <h4 class="card-title">Menu List</h4>
+          <i
+            [routerLink]="['/admin/add-menu',]"
+            class="nc-icon nc-simple-add mx-3"
+            tooltip="Add Menu"
+            placement="top" hide-delay="0"
+          >
+          </i>
+        </div>
+        <div class="input-group no-border col-lg-3">
+          <input
+            type="text"
+            value=""
+            class="form-control"
+            placeholder="Search..."
+            [(ngModel)]="searchtext"
+          />
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <i class="nc-icon nc-zoom-split"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive" *ngIf="menus.length > 0">
+          <table class="table">
+            <thead class="text-primary">
+              <th>Name</th>
+              <th>Active</th>
+              <th>Action</th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let menu of menus | filter: searchtext">
+                <td>{{ menu.menu | titlecase }}</td>
+                <td>
+                  <div
+                    class="status-circle ml-4"
+                    [ngClass]="menu.active ? 'active' : ''"
+                  ></div>
+                </td>
+                <td>
+                  <i
+                    class="nc-icon nc-ruler-pencil mr-3"
+                    tooltip="Edit"
+                    placement="top" hide-delay="0"
+                    [routerLink]="['/admin/edit-menu', menu.menuId, 'update']"
+                  >
+                  </i>
+                  <i
+                    class="nc-icon nc-simple-remove mr-3"
+                    tooltip="Remove"
+                    placement="top" hide-delay="0"
+                  >
+                  </i>
+                  <i
+                    class="nc-icon nc-glasses-2 mr-3"
+                    tooltip="View"
+                    placement="top" hide-delay="0"
+                    [routerLink]="['/admin/edit-menu', menu.menuId, 'view']"
+                  >
+                  </i>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

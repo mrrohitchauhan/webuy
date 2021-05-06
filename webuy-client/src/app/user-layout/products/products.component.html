@@ -1,0 +1,102 @@
+<div id="all">
+  <div id="content">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <!-- breadcrumb-->
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a href="javascript:void(0)">{{ mainMenu | titlecase }}</a>
+              </li>
+              <li aria-current="page" class="breadcrumb-item active">
+                {{ subMenu | titlecase }}
+              </li>
+            </ol>
+          </nav>
+          <div class="box">
+            <h1>{{ subMenu | titlecase }}</h1>
+            <!-- <p>
+              In our Ladies department we offer wide selection of the best
+              products we have found and carefully selected worldwide.
+            </p> -->
+          </div>
+          <div class="box info-bar">
+            <div class="row">
+              <div class="col-md-12 col-lg-4 products-showing">
+                Showing <strong>{{ products.length }}</strong> products
+              </div>
+              <div class="col-md-12 col-lg-7 products-number-sort">
+                <form
+                  class="form-inline d-block d-lg-flex justify-content-around flex-column flex-md-row"
+                >
+                  <!-- <div class="products-number">
+                    <strong>Show</strong
+                    ><a href="#" class="btn btn-sm btn-primary">12</a
+                    ><span>products</span>
+                  </div> -->
+                  <div class="products-sort-by mt-2 mt-lg-0">
+                    <strong>Sort by</strong>
+                    <select
+                      name="sort-by"
+                      class="form-control"
+                      (change)="onSortByChange($event)"
+                    >
+                      <option value="price">Price</option>
+                      <option value="name">Name</option>
+                    </select>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="row products">
+            <div class="col-lg-3 col-md-4" *ngFor="let product of products">
+              <div class="product">
+                <div class="flip-container">
+                  <div class="flipper">
+                    <div
+                      [ngClass]="img.imgtype == true ? 'front' : 'back'"
+                      *ngFor="let img of product.productimages"
+                    >
+                      <a [routerLink]="['/webuy/product-detils', product.id]"
+                        ><img [src]="img.imgurl" alt="" class="img-fluid"
+                      /></a>
+                    </div>
+                  </div>
+                </div>
+                <a
+                  [routerLink]="['/webuy/product-detils', product.id]"
+                  class="invisible"
+                  ><img
+                    [src]="product.productimages[0].imgurl"
+                    alt=""
+                    class="img-fluid"
+                /></a>
+                <div class="text">
+                  <h3>
+                    <a [routerLink]="['/webuy/product-detils', product.id]">{{ product.name }}</a>
+                  </h3>
+                  <p class="price"><del></del> &#8377; {{ product.price }}</p>
+                  <p class="buttons">
+                    <a
+                      [routerLink]="['/webuy/product-detils', product.id]"
+                      class="btn btn-outline-secondary"
+                      >View detail</a
+                    ><a class="btn btn-primary" (click)="addToCart(product)"
+                      ><i class="fa fa-shopping-cart"></i>Add to cart</a
+                    >
+                  </p>
+                </div>
+                <!-- /.text-->
+              </div>
+              <!-- /.product            -->
+            </div>
+            <!-- /.products-->
+          </div>
+        </div>
+        <!-- /.col-lg-9-->
+      </div>
+    </div>
+  </div>
+</div>

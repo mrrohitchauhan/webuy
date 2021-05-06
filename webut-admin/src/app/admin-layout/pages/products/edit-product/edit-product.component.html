@@ -1,0 +1,331 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title">{{ productId ? "Update" : "Add" }} Product</h4>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="productForm">
+          <div class="row">
+            <div
+              class="form-group"
+              [ngClass]="isUpdate || isView ? 'col-lg-6' : 'col-lg-12'"
+            >
+              <label for="name">Product Name</label>
+              <input
+                id="productName"
+                type="text"
+                class="form-control"
+                formControlName="name"
+                placeholder="Enter product name"
+              />
+            </div>
+            <ng-container *ngIf="isUpdate || isView">
+              <div class="form-group col-lg-3">
+                <label>Menu</label>
+                <input
+                  id="menu"
+                  type="text"
+                  class="form-control"
+                  [value]="product?.category"
+                  disabled
+                />
+              </div>
+              <div class="form-group col-lg-3">
+                <label>Sub Category</label>
+                <input
+                  id="subcategory"
+                  type="text"
+                  class="form-control"
+                  [value]="product?.subcategory"
+                  disabled
+                />
+              </div>
+            </ng-container>
+            <ng-container *ngIf="!isUpdate && !isView">
+              <div class="form-group col-lg-6">
+                <label for="name">Menu</label>
+                <select
+                  name="menu"
+                  class="form-control"
+                  id="menu"
+                  formControlName="menu"
+                >
+                  <option value="" disabled selected>Please select menu</option>
+                  <ng-container *ngIf="menus">
+                    <option [value]="menu.menucode" *ngFor="let menu of menus">
+                      {{ menu.menu }}
+                    </option>
+                  </ng-container>
+                </select>
+              </div>
+              <div class="form-group col-lg-3">
+                <label for="name">Category</label>
+                <select
+                  name="category"
+                  class="form-control"
+                  id="category"
+                  formControlName="category"
+                >
+                  <option value="" disabled selected>
+                    Please select category
+                  </option>
+                  <ng-container *ngIf="dropdowns.category">
+                    <option
+                      [value]="category.name"
+                      *ngFor="let category of dropdowns.category"
+                    >
+                      {{ category.name }}
+                    </option>
+                  </ng-container>
+                </select>
+              </div>
+              <div class="form-group col-lg-3">
+                <label for="name">Sub-category</label>
+                <select
+                  name="subcategory"
+                  class="form-control"
+                  id="subcategory"
+                  formControlName="subcategory"
+                >
+                  <option value="" disabled selected>
+                    Please select subcategory
+                  </option>
+                  <ng-container *ngIf="dropdowns.subcategory">
+                    <option
+                      [value]="subcat.menucode"
+                      *ngFor="let subcat of dropdowns.subcategory"
+                    >
+                      {{ subcat.menu }}
+                    </option>
+                  </ng-container>
+                </select>
+              </div>
+            </ng-container>
+          </div>
+          <div class="row" formGroupName="productdetails">
+            <div class="form-group col-lg-6">
+              <label for="mobile">About product</label>
+              <textarea
+                cols="2"
+                rows="2"
+                id="description"
+                class="form-control"
+                formControlName="description"
+                placeholder="Enter about product"
+              ></textarea>
+            </div>
+            <div class="form-group col-lg-6">
+              <label for="mobile">Product Description</label>
+              <textarea
+                cols="2"
+                rows="2"
+                id="f_description"
+                class="form-control"
+                formControlName="f_description"
+                placeholder="Enter important note about product"
+              ></textarea>
+            </div>
+            <div class="form-group col-lg-6" formArrayName="material">
+              <div class="d-flex justify-content-between">
+                <label for="name">Material</label>
+                <button
+                  class="custom-button"
+                  (click)="addMaterial()"
+                  *ngIf="!isView"
+                >
+                  <i class="nc-icon nc-simple-add"></i>
+                </button>
+              </div>
+
+              <div
+                *ngFor="
+                  let material of getMaterialArrayControl().controls;
+                  let materialIndex = index
+                "
+              >
+                <div
+                  class="d-flex align-content-center row"
+                  [formGroupName]="materialIndex"
+                >
+                  <div class="col-lg-9">
+                    <input
+                      id="material"
+                      type="text"
+                      class="form-control"
+                      placeholder="Enter Material {{ materialIndex + 1 }}"
+                      formControlName="material"
+                    />
+                  </div>
+                  <div class="col-lg-2" *ngIf="!isView">
+                    <button
+                      class="custom-button"
+                      (click)="removeMaterial(materialIndex)"
+                    >
+                      <i class="nc-icon nc-simple-delete"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group col-lg-6" formArrayName="size">
+              <div class="d-flex justify-content-between">
+                <label for="name">Size</label>
+                <button
+                  class="custom-button"
+                  (click)="addSize()"
+                  *ngIf="!isView"
+                >
+                  <i class="nc-icon nc-simple-add"></i>
+                </button>
+              </div>
+              <div
+                *ngFor="
+                  let size of getSizeArrayControl().controls;
+                  let sizeIndex = index
+                "
+              >
+                <div
+                  class="d-flex align-content-center row justify-content-center"
+                  [formGroupName]="sizeIndex"
+                >
+                  <div class="col-lg-9">
+                    <input
+                      id="size"
+                      type="text"
+                      class="form-control"
+                      placeholder="Enter Size {{ sizeIndex + 1 }}"
+                      formControlName="size"
+                    />
+                  </div>
+                  <div class="col-lg-2" *ngIf="!isView">
+                    <button
+                      class="custom-button"
+                      (click)="removeSize(sizeIndex)"
+                    >
+                      <i class="nc-icon nc-simple-delete"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="form-group col-lg-3">
+              <label for="email">Sale</label>
+              <div class="styled-input-single">
+                <input
+                  type="checkbox"
+                  name="fieldset-5"
+                  id="checkbox-example-onsale"
+                  formControlName="onsale"
+                />
+                <label for="checkbox-example-onsale">On Sale</label>
+              </div>
+            </div>
+            <div class="form-group col-lg-3">
+              <label for="email">New</label>
+              <div class="styled-input-single">
+                <input
+                  type="checkbox"
+                  name="fieldset-5"
+                  id="checkbox-example-isnew"
+                  formControlName="isnew"
+                />
+                <label for="checkbox-example-isnew">New</label>
+              </div>
+            </div>
+            <div class="form-group col-lg-2">
+              <label for="email">Is Active</label>
+              <div class="styled-input-single">
+                <input
+                  type="checkbox"
+                  name="fieldset-5"
+                  id="checkbox-example-isActive"
+                  formControlName="isActive"
+                />
+                <label for="checkbox-example-isActive">Active</label>
+              </div>
+            </div>
+            <div class="form-group col-lg-4">
+              <label>Product Price</label>
+              <input
+                id="productPrice"
+                type="text"
+                class="form-control"
+                placeholder="Enter product price"
+                formControlName="price"
+              />
+            </div>
+          </div>
+          <div>
+            <div
+              formArrayName="productimages"
+              *ngFor="
+                let productImage of getProductImageArrayControl().controls;
+                let productImageIndex = index
+              "
+            >
+              <div
+                class="row d-flex align-content-center"
+                [formGroupName]="productImageIndex"
+              >
+                <div class="form-group col-lg-6">
+                  <label for="imgurl" *ngIf="productImageIndex == 0"
+                    >Enter front side image url for product</label
+                  >
+                  <label for="imgurl" *ngIf="productImageIndex > 0"
+                    >Enter product image url</label
+                  >
+                  <input
+                    id="imgurl"
+                    type="text"
+                    class="form-control"
+                    [placeholder]="productImageIndex == 0 ? 'Enter front side image url for product' : 'Enter back side image url for product'"
+                    formControlName="imgurl"
+                  />
+                </div>
+                <div class="col-lg-4 form-group" *ngIf="!isView">
+                  <button
+                    class="custom-button mx-4"
+                    tooltip="Remove Image URL"
+                    placement="bottom"
+                    hide-delay="0"
+                    (click)="removeImage(productImageIndex)"
+                  >
+                    <i class="nc-icon nc-simple-delete"></i>
+                  </button>
+                  <button
+                    *ngIf="
+                      productImageIndex + 1 ==
+                      getProductImageArrayControl().controls.length
+                    "
+                    class="custom-button"
+                    (click)="addImage()"
+                    tooltip="Add Image URL"
+                    placement="bottom"
+                    hide-delay="0"
+                  >
+                    <i class="nc-icon nc-simple-add"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="text-center">
+            <button
+              type="button"
+              class="btn btn-primary"
+              (click)="sendProduct()"
+              [disabled]="productForm.invalid"
+            >
+              <i class="fa fa-user-md"></i>
+              {{ productId ? "Update" : "Add" }} Product
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

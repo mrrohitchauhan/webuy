@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Webuy</title>
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+
+    <link
+      rel="stylesheet"
+      href="assets/vendor/bootstrap/css/bootstrap.min.css"
+    />
+    <!-- Font Awesome CSS-->
+    <link
+      rel="stylesheet"
+      href="assets/vendor/font-awesome/css/font-awesome.min.css"
+    />
+    <!-- Google fonts - Roboto -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700"
+    />
+    <!-- owl carousel-->
+    <link
+      rel="stylesheet"
+      href="assets/vendor/owl.carousel/assets/owl.carousel.css"
+    />
+    <link
+      rel="stylesheet"
+      href="assets/vendor/owl.carousel/assets/owl.theme.default.css"
+    />
+    <!-- theme stylesheet-->
+    <link
+      rel="stylesheet"
+      href="assets/css/style.default.css"
+      id="theme-stylesheet"
+    />
+    <!-- Custom stylesheet - for your changes-->
+    <link rel="stylesheet" href="assets/css/custom.css" />
+    <link rel="stylesheet" href="assets/css/wizard.css" />
+  </head>
+  <body>
+    <app-root></app-root>
+    
+    <script src="assets/vendor/jquery/jquery.min.js"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/jquery.cookie/jquery.cookie.js"></script>
+    <script src="assets/vendor/owl.carousel/owl.carousel.min.js"></script>
+    <script src="assets/vendor/owl.carousel2.thumbs/owl.carousel2.thumbs.js"></script>
+    <script src="assets/js/front.js"></script>
+    <script src="assets/js/wizard.js"></script>
+    <script src="assets/vendor/tilt/tilt.jquery.min.js"></script>
+    <script src="https://checkout.stripe.com/checkout.js"></script>
+
+    <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+
+    <df-messenger
+      intent="WELCOME"
+      chat-title="WebuyBot"
+      agent-id="d9a1040b-4265-46a3-b0f1-be26f89a6725"
+      language-code="en"
+    ></df-messenger>
+  </body>
+</html>

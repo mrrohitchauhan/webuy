@@ -1,0 +1,34 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div
+        class="card-header d-flex justify-content-between align-items-center"
+      >
+        <div class="d-flex justify-content-center align-items-center">
+          <h4 class="card-title">Queries</h4>
+        </div>
+      </div>
+      <div
+        class="card-body query mb-3"
+        *ngFor="let query of queries; let i = index"
+      >
+        <div class="d-flex justify-content-between">
+          <span
+            ><strong class="badge badge-info">Query # {{ i + 1 }}</strong></span
+          >
+          <div>
+            <h6>Name - {{ query.name }}</h6>
+            <strong>Email - {{ query.email }}</strong>
+          </div>
+        </div>
+        <h6>Subject - {{ query.subject }}</h6>
+        <div class="d-flex justify-content-between">
+          <strong>Message - {{ query.message }}</strong>
+         <button class="btn btn-primary" *ngIf="!query.solved" (click)="changeStatus(query.id)">Resolve</button>
+         <button class="btn btn-primary" *ngIf="query.solved" disabled>Solved</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

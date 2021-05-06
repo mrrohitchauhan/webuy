@@ -1,0 +1,202 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title">{{ menuId ? "Update" : "Add" }} Menu</h4>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="menuForm">
+          <div class="row">
+            <div class="form-group col-lg-6">
+              <label for="name">Menu Name</label>
+              <input
+                id="menuName"
+                type="text"
+                class="form-control"
+                placeholder="Enter Menu Name"
+                formControlName="menu"
+              />
+            </div>
+            <div class="form-group col-lg-3">
+              <label for="name">Menu Code</label>
+              <input
+                id="menuCode"
+                type="text"
+                class="form-control"
+                placeholder="Enter Menu Code"
+                formControlName="menucode"
+              />
+            </div>
+            <div class="form-group col-lg-3">
+              <label>Active</label>
+              <div class="styled-input-single">
+                <input
+                  type="checkbox"
+                  name="fieldset-5"
+                  id="checkbox-example-menu-isActive"
+                  formControlName="isActive"
+                />
+                <label for="checkbox-example-menu-isActive">Is Active</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group col-lg-12 ml-2" formArrayName="categories">
+            <div
+              *ngFor="
+                let category of getCategoriesArrayControl().controls;
+                let categoryIndex = index
+              "
+            >
+              <ng-container [formGroupName]="categoryIndex">
+                <div class="d-flex align-content-center row">
+                  <div class="form-group col-lg-6">
+                    <label for="name">Category Name</label>
+                    <input
+                      id="catergory"
+                      type="text"
+                      class="form-control"
+                      placeholder="Enter Category {{ categoryIndex + 1 }}"
+                      formControlName="name"
+                    />
+                  </div>
+                  <div class="form-group col-lg-3">
+                    <label>Active</label>
+                    <div class="styled-input-single">
+                      <input
+                        type="checkbox"
+                        name="fieldset-5"
+                        id="checkbox-example-cat-isActive{{ categoryIndex }}"
+                        formControlName="isActive"
+                      />
+                      <label
+                        for="checkbox-example-cat-isActive{{ categoryIndex }}"
+                        >Is Active</label
+                      >
+                    </div>
+                  </div>
+                  <div class="col-lg-2 justify-content-between" *ngIf="!isView">
+                    <button
+                      class="custom-button"
+                      tooltip="Remove Category"
+                      placement="top"
+                      hide-delay="0"
+                      (click)="removeCategory(categoryIndex)"
+                    >
+                      <i class="nc-icon nc-simple-delete"></i>
+                    </button>
+                    <button
+                      *ngIf="
+                        categoryIndex + 1 ==
+                        getCategoriesArrayControl().controls.length
+                      "
+                      class="custom-button"
+                      (click)="addCategory()"
+                      tooltip="Add Category"
+                      placement="top"
+                      hide-delay="0"
+                    >
+                      <i class="nc-icon nc-simple-add"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <div
+                  formArrayName="subcategories"
+                  *ngFor="
+                    let subCat of getSubCategoriesArrayControl(
+                      categoryIndex
+                    ).controls;
+                    let subCatIndex = index
+                  " class="ml-5"
+                >
+                  <div
+                    class="row d-flex align-content-center"
+                    [formGroupName]="subCatIndex"
+                  >
+                    <div class="form-group col-lg-6">
+                      <label for="name">Sub Category Name</label>
+                      <input
+                        id="menuName"
+                        type="text"
+                        class="form-control"
+                        placeholder="Enter Sub Category Name {{ subCatIndex + 1 }}"
+                        formControlName="menu"
+                      />
+                    </div>
+                    <div class="form-group col-lg-3">
+                      <label for="name">Sub Category Code</label>
+                      <input
+                        id="menucode"
+                        type="text"
+                        class="form-control"
+                        placeholder="Enter Sub Category Code {{ subCatIndex + 1 }}"
+                        formControlName="menucode"
+                      />
+                    </div>
+                    <div class="form-group col-lg-1">
+                      <label>Active</label>
+                      <div class="styled-input-single">
+                        <input
+                          type="checkbox"
+                          name="fieldset-5"
+                          id="checkbox-example-subCat-isActive{{
+                            subCatIndex
+                          }}{{ categoryIndex }}"
+                          formControlName="isActive"
+                        />
+                        <label
+                          for="checkbox-example-subCat-isActive{{
+                            subCatIndex
+                          }}{{ categoryIndex }}"
+                          >Active</label
+                        >
+                      </div>
+                    </div>
+                    <div class="col-lg-2 justify-content-between" *ngIf="!isView">
+                      <button
+                        class="custom-button"
+                        tooltip="Remove Category"
+                        placement="top"
+                        hide-delay="0"
+                        (click)="removeSubCategory(categoryIndex, subCatIndex)"
+                      >
+                        <i class="nc-icon nc-simple-delete"></i>
+                      </button>
+                      <button
+                        *ngIf="
+                        subCatIndex + 1 ==
+                          getSubCategoriesArrayControl(categoryIndex).controls
+                            .length
+                        "
+                        class="custom-button"
+                        (click)="addSubCategory(categoryIndex)"
+                        tooltip="Add Category"
+                        placement="top"
+                        hide-delay="0"
+                      >
+                        <i class="nc-icon nc-simple-add"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+
+          <div class="text-center">
+            <button
+              type="button"
+              class="btn btn-primary"
+              (click)="sendMenu()"
+              [disabled]="menuForm.invalid"
+            >
+              <i class="fa fa-user-md"></i>
+              {{ menuId ? "Update" : "Add" }} Menu
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

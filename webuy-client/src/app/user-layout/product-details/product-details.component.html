@@ -1,0 +1,216 @@
+<div id="all" *ngIf="product != null">
+  <div id="content">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <!-- breadcrumb-->
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item">
+                <a href="#">{{ product.category }}</a>
+              </li>
+              <li class="breadcrumb-item">
+                <a href="#">{{ product.subcategory }}</a>
+              </li>
+              <li aria-current="page" class="breadcrumb-item active">
+                {{ product.name }}
+              </li>
+            </ol>
+          </nav>
+        </div>
+        <div class="col-lg-4 order-2 order-lg-1">
+          <!--
+          *** MENUS AND FILTERS ***
+          _________________________________________________________
+          -->
+          <div class="card sidebar-menu mb-4">
+            <div class="card-header">
+              <h3 class="h4 card-title">Categories</h3>
+            </div>
+            <div class="card-body">
+              <ul class="nav nav-pills flex-column category-menu">
+                <li *ngFor="let menu of menus">
+                  <a class="nav-link">{{ menu.menu }}</a>
+                  <ul class="list-unstyled">
+                    <ng-container *ngFor="let item1 of menu.categories">
+                      <li *ngFor="let item of item1.subcategories">
+                        <a
+                          [routerLink]="[
+                            '/webuy/products',
+                            menu.menucode,
+                            item.menucode
+                          ]"
+                          class="nav-link"
+                          [ngClass]="
+                            item.menucode == product.subcategory ? 'active' : ''
+                          "
+                          >{{ item.menu }}</a
+                        >
+                      </li>
+                    </ng-container>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-8 order-1 order-lg-2">
+          <div id="productMain" class="row">
+            <div class="col-md-6">
+              <div data-slider-id="1" class="owl-carousel shop-detail-carousel">
+                <div
+                  class="item"
+                  *ngFor="let productimage of product.productimages"
+                >
+                  <img [src]="productimage.imgurl" alt="" class="img-fluid" />
+                </div>
+              </div>
+              <div class="ribbon sale" *ngIf="product.onsale">
+                <div class="theribbon">SALE</div>
+                <div class="ribbon-background"></div>
+              </div>
+              <!-- /.ribbon-->
+              <div class="ribbon new" *ngIf="product.isnew">
+                <div class="theribbon">NEW</div>
+                <div class="ribbon-background"></div>
+              </div>
+              <!-- /.ribbon-->
+            </div>
+            <div class="col-md-6">
+              <div class="box">
+                <h1 class="text-center">{{ product.name }}</h1>
+                <p class="goToDescription">
+                  <a href="#details" class="scroll-to"
+                    >Scroll to product details, material &amp; care and
+                    sizing</a
+                  >
+                </p>
+                <p class="price">&#8377; {{ product.price }}</p>
+                <p class="text-center buttons">
+                  <a class="btn btn-primary" (click)="addToCart()"
+                    ><i class="fa fa-shopping-cart"></i> Add to cart</a
+                  >
+                  <!-- <a class="btn btn-outline-primary"
+                    ><i class="fa fa-heart"></i> Add to wishlist</a
+                  > -->
+                </p>
+              </div>
+              <div data-slider-id="1" class="owl-thumbs">
+                <button
+                  class="owl-thumb-item"
+                  *ngFor="let productimage of product.productimages"
+                >
+                  <img [src]="productimage.imgurl" alt="" class="img-fluid" />
+                </button>
+              </div>
+            </div>
+          </div>
+          <div
+            id="details"
+            class="box"
+            *ngIf="
+              product.productdetails.description ||
+              product.productdetails.material.length > 0 ||
+              product.productdetails.size.length > 0 ||
+              product.productdetails.f_description
+            "
+          >
+            <div *ngIf="product.productdetails.description">
+              <h4>Product details</h4>
+              <p>{{ product.productdetails.description }}</p>
+            </div>
+            <ng-container *ngIf="product.productdetails.material.length > 0">
+              <h4>Material &amp; care</h4>
+              <ul>
+                <li *ngFor="let material of product.productdetails.material">
+                  {{ material.material }}
+                </li>
+              </ul>
+            </ng-container>
+            <ng-container *ngIf="product.productdetails.size.length > 0">
+              <h4>Size &amp; Fit</h4>
+              <ul>
+                <li *ngFor="let size of product.productdetails.size">
+                  {{ size.size }}
+                </li>
+              </ul>
+            </ng-container>
+            <blockquote *ngIf="product.productdetails.f_description">
+              <p>
+                <em>{{ product.productdetails.f_description }}</em>
+              </p>
+            </blockquote>
+            <hr />
+            <div class="social">
+              <h4>Show it to your friends</h4>
+              <p>
+                <a href="#" class="external facebook"
+                  ><i class="fa fa-facebook"></i></a
+                ><a href="#" class="external gplus"
+                  ><i class="fa fa-google-plus"></i></a
+                ><a href="#" class="external twitter"
+                  ><i class="fa fa-twitter"></i></a
+                ><a href="#" class="email"><i class="fa fa-envelope"></i></a>
+              </p>
+            </div>
+          </div>
+          <div class="d-flex justify-content-center row mt-5 mb-5">
+            <div class="d-flex flex-column col">
+              <div class="coment-bottom bg-white p-2 px-4">
+                <h2 class="pt-3">You can comment on this product</h2>
+                <div class="d-flex flex-row add-comment-section mt-4 mb-4" *ngIf="!isCommented">
+                  <img
+                    class="img-fluid img-responsive rounded-circle mr-2"
+                    src="assets/img/user.png"
+                    width="38"
+                  /><input
+                    type="text"
+                    class="form-control mr-3"
+                    placeholder="Add comment"
+                    #reviewBox
+                  /><button
+                    class="btn btn-primary"
+                    type="button"
+                    (click)="postReview(reviewBox.value)"
+                    [disabled]="!reviewBox.value"
+                  >
+                    Comment
+                  </button>
+                </div>
+                <ng-container *ngIf="reviews.length > 0">
+                  <div
+                    class="commented-section mt-2"
+                    *ngFor="let review of reviews"
+                  >
+                    <div
+                      class="d-flex flex-row align-items-center commented-user"
+                    >
+                      <h4 class="mr-2">{{ review.userName | titlecase }}</h4>
+                      <span class="dot mb-1"></span
+                      ><span class="mb-1 ml-2">{{ review.commentedOn | timeago:live }}</span>
+                    </div>
+                    <div class="comment-text-sm">
+                      <span>{{ review.comment }}</span>
+                    </div>
+                    <!-- <div class="reply-section">
+                    <div
+                      class="d-flex flex-row align-items-center voting-icons"
+                    >
+                      <i class="fa fa-sort-up fa-2x mt-3 hit-voting"></i
+                      ><i class="fa fa-sort-down fa-2x mb-3 hit-voting"></i
+                      ><span class="ml-2">10</span
+                      ><span class="dot ml-2"></span>
+                      <h6 class="ml-2 mt-1">Reply</h6>
+                    </div>
+                  </div> -->
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

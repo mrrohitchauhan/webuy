@@ -1,0 +1,81 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div
+        class="card-header d-flex justify-content-between align-items-center"
+      >
+        <div class="d-flex justify-content-center align-items-center">
+          <h4 class="card-title">Product List</h4>
+          <i
+            [routerLink]="['/admin/add-product']"
+            class="nc-icon nc-simple-add mx-3"
+            tooltip="Add Product" placement="top" hide-delay="0"
+            >
+</i>
+        </div>
+        <div class="input-group no-border col-lg-3">
+          <input
+            type="text"
+            value=""
+            class="form-control"
+            placeholder="Search..."
+            [(ngModel)]="searchtext"
+          />
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <i class="nc-icon nc-zoom-split"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive" *ngIf="productList.length > 0">
+          <table class="table">
+            <thead class="text-primary">
+              <th>Name</th>
+              <th>Category</th>
+              <th>Sub Category</th>
+              <th>Price</th>
+              <th>Is Active</th>
+              <th>Action</th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let product of productList | filter: searchtext">
+                <td>{{ product.name | titlecase }}</td>
+                <td>{{ product.category | titlecase }}</td>
+                <td>{{ product.subcategory | titlecase }}</td>
+                <td>{{ product.price | currency: "INR":"symbol":"1.2-2" }}</td>
+                <td>
+                  <div
+                    class="status-circle ml-4"
+                    [ngClass]="product.isActive ? 'active' : ''"
+                  ></div>
+                </td>
+                <td>
+                  <i
+                    class="nc-icon nc-ruler-pencil mr-3"
+                    tooltip="Edit" placement="top" hide-delay="0"
+                    [routerLink]="['/admin/edit-product', product.productId, 'update']"
+                  >
+                  </i>
+                  <i
+                    class="nc-icon nc-simple-remove mr-3"
+                    tooltip="Remove" placement="top" hide-delay="0"
+                    (click)="removeProduct(product.productId)"
+                  >
+                  </i>
+                  <i
+                    class="nc-icon nc-glasses-2 mr-3"
+                    tooltip="View" placement="top" hide-delay="0"
+                    [routerLink]="['/admin/edit-product', product.productId, 'view']"
+                  >
+                  </i>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

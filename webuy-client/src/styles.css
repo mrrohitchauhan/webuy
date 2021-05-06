@@ -1,0 +1,47 @@
+/* You can add global styles to this file, and also import other style files */
+.modal-header .close:focus {
+  outline: none;
+}
+df-messenger {
+  --df-messenger-bot-message: #87ebd7;
+  --df-messenger-button-titlebar-color: #4fbfa8;
+  --df-messenger-chat-background-color: #fafafa;
+  --df-messenger-font-color: black;
+  --df-messenger-send-icon: #33c5a8;
+  --df-messenger-user-message: #4fbfa8;
+}
+
+@font-face {
+  font-family: Montserrat-Regular;
+  src: url("./assets/fonts/montserrat/Montserrat-Regular.ttf");
+}
+
+@font-face {
+  font-family: Montserrat-Bold;
+  src: url("./assets//fonts/montserrat/Montserrat-Bold.ttf");
+}
+
+@font-face {
+  font-family: Montserrat-ExtraBold;
+  src: url("./assets//fonts/montserrat/Montserrat-ExtraBold.ttf");
+}
+
+@font-face {
+  font-family: Montserrat-Medium;
+  src: url("./assets//fonts/montserrat/Montserrat-Medium.ttf");
+}
+
+/*//////////////////////////////////////////////////////////////////
+      [ RESTYLE TAG ]*/
+
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+body,
+html {
+  height: 100%;
+  font-family: Montserrat-Regular, sans-serif;
+}

@@ -1,0 +1,212 @@
+<header class="header mb-5">
+  <!--
+    *** TOPBAR ***
+    _________________________________________________________
+    -->
+  <div id="top">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 offer mb-3 mb-lg-0">
+          <a href="#" class="btn btn-success btn-sm">Offer of the day</a
+          ><a href="#" class="ml-1"></a>
+        </div>
+        <div class="col-lg-6 text-center text-lg-right">
+          <ul class="menu list-inline mb-0">
+            <li class="list-inline-item" *ngIf="isLoggedIn; else sign">
+              <a [routerLink]="['/webuy/account']">{{ user.displayName }}</a>
+            </li>
+            <ng-template #sign>
+              <li class="list-inline-item">
+                <a href="javascript:void(0)" (click)="openLoginModal()"
+                  >Login</a
+                >
+              </li>
+              <li class="list-inline-item">
+                <a [routerLink]="['/webuy/register']">Register</a>
+              </li>
+            </ng-template>
+
+            <li class="list-inline-item"> <a [routerLink]="['/webuy/contact']">Contact us</a></li>
+            <!--<li class="list-inline-item"><a href="#">Recently viewed</a></li>-->
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- *** TOP BAR END ***-->
+  </div>
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <a href="index.html" class="navbar-brand home"
+        ><img
+          src="assets/img/webuylogo.png"
+          alt="Web Buy"
+          width="80"
+          class="d-none d-md-inline-block"
+        /><img
+          src="assets/img/webuylogo.png"
+          alt="Obaju logo"
+          width="50"
+          class="d-inline-block d-md-none"
+        /><span class="sr-only">Obaju - go to homepage</span></a
+      >
+      <div class="navbar-buttons">
+        <button
+          type="button"
+          data-toggle="collapse"
+          data-target="#navigation"
+          class="btn btn-outline-secondary navbar-toggler"
+        >
+          <span class="sr-only">Toggle navigation</span
+          ><i class="fa fa-align-justify"></i>
+        </button>
+       <a [routerLink]="['/webuy/basket']" class="btn btn-outline-secondary navbar-toggler"
+          ><i class="fa fa-shopping-cart"></i
+        ></a>
+      </div>
+      <div id="navigation" class="collapse navbar-collapse">
+        <ul class="navbar-nav mr-auto" *ngIf="menus">
+          <li class="nav-item">
+            <a
+              [routerLink]="['/webuy/dashboard']"
+              routerLinkActive="active"
+              class="nav-link"
+              >Home</a
+            >
+          </li>
+          <ng-container *ngFor="let menu of menus">
+            <li class="nav-item dropdown menu-large" *ngIf="menu.isActive">
+              <a
+                href="#"
+                data-toggle="dropdown"
+                data-hover="dropdown"
+                data-delay="200"
+                class="dropdown-toggle nav-link"
+                routerLinkActive="active"
+                >{{ menu.menu }}<b class="caret"></b
+              ></a>
+              <ul class="dropdown-menu megamenu">
+                <li>
+                  <div class="row">
+                    <ng-container *ngFor="let category of menu.categories">
+                      <div class="col-md-6 col-lg-3" *ngIf="category.isActive">
+                        <h5>{{ category.name }}</h5>
+                        <ul class="list-unstyled mb-3">
+                          <ng-container
+                            *ngFor="let subcategory of category.subcategories"
+                          >
+                            <li class="nav-item" *ngIf="subcategory.isActive">
+                              <a
+                                [routerLink]="[
+                                  '/webuy/products',
+                                  menu.menucode,
+                                  subcategory.menucode
+                                ]"
+                                class="nav-link"
+                                >{{ subcategory.menu }}</a
+                              >
+                            </li>
+                          </ng-container>
+                        </ul>
+                      </div>
+                    </ng-container>
+                  </div>
+                </li>
+              </ul>
+            </li>
+          </ng-container>
+        </ul>
+        <div class="navbar-buttons d-flex justify-content-end">
+          <!-- /.nav-collapse-->
+          <div id="search-not-mobile" class="navbar-collapse collapse"></div>
+          <!-- <a
+            data-toggle="collapse"
+            href="#search"
+            class="btn navbar-btn btn-primary d-none d-lg-inline-block"
+            ><span class="sr-only">Toggle search</span
+            ><i class="fa fa-search"></i
+          ></a> -->
+          <div
+            id="basket-overview"
+            class="navbar-collapse collapse d-none d-lg-block"
+          >
+            <a
+              [routerLink]="['/webuy/basket']"
+              class="btn btn-primary navbar-btn"
+              ><i class="fa fa-shopping-cart"></i
+              ><span>{{ cartItemCounts }} items in cart</span></a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <div id="search" class="collapse">
+    <div class="container">
+      <form role="search" class="ml-auto">
+        <div class="input-group">
+          <input type="text" placeholder="Search" class="form-control" />
+          <div class="input-group-append">
+            <button type="button" class="btn btn-primary">
+              <i class="fa fa-search"></i>
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</header>
+<router-outlet> </router-outlet>
+
+<!--
+  *** FOOTER ***
+  _________________________________________________________
+  -->
+<div id="footer">
+  <div class="container">
+    <div class="row justify-content-around">
+      <div class="col-lg-3 col-md-6">
+        <h4 class="mb-3">Contact Details</h4>
+        <ul class="list-unstyled">
+          <!--<li><a href="text.html">About us</a></li>
+          <li><a href="text.html">Terms and conditions</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="contact.html">Contact us</a></li>-->
+          <strong>Name: Sunil Singh</strong><br /><strong>Email: s200sunil@gmail.com</strong><br /><Strong>Contact: 8446820860</Strong>
+        </ul>
+      </div>
+      <!-- /.col-lg-3-->
+      <div class="col-lg-3 col-md-6">
+        <h4 class="mb-3">Top categories</h4>
+        <ng-container *ngFor="let menu of menus">
+          <h5 *ngIf="menu.isActive">{{ menu.menu }}</h5>
+          <ul class="list-unstyled" *ngIf="menu.isActive">
+            <ng-container  *ngFor="let cat of menu.categories"> 
+              <li *ngIf="cat.isActive"><a href="javascript:void(0)">{{ cat.name }}</a></li>
+            </ng-container>
+          </ul>
+        </ng-container>
+      </div>
+      <!-- /.col-lg-3-->
+      <div class="col-lg-3 col-md-6">
+        <h4 class="mb-3">Where to find us</h4>
+        <p>
+          <strong>DSHR Solutions</strong><br />12/D Wing<br />Chirtialaya<br />Boisar<br /><strong>401504</strong>
+        </p>
+        <!--<a href="contact.html">Go to contact page</a>-->
+        <hr class="d-block d-md-none" />
+      </div>
+      <!-- /.col-lg-3-->
+      <!-- /.col-lg-3-->
+    </div>
+    <!-- /.row-->
+  </div>
+  <!-- /.container-->
+</div>
+<ngx-spinner
+  bdColor="rgba(0, 0, 0, 0.5)"
+  size="medium"
+  color="#fff"
+  type="ball-fussion"
+  [fullScreen]="true"
+></ngx-spinner>

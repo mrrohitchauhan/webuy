@@ -1,0 +1,47 @@
+<div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title">Customer login</h5>
+      <button
+        type="button"
+        data-dismiss="modal"
+        aria-label="Close"
+        class="close"
+        (click)="closeLoginModal()"
+      >
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="loginForm">
+        <div class="form-group">
+          <input
+            id="email-modal"
+            type="text"
+            placeholder="email"
+            class="form-control"
+            formControlName="email"
+          />
+        </div>
+        <div class="form-group">
+          <input
+            id="password-modal"
+            type="password"
+            placeholder="password"
+            class="form-control"
+            formControlName="password"
+          />
+        </div>
+        <p class="text-center">
+          <button class="btn btn-primary" (click)="signIn()" [disabled]="loginForm.invalid">
+            <i class="fa fa-sign-in"></i> Log in
+          </button>
+        </p>
+      </form>
+      <p class="text-center text-muted">Not registered yet?</p>
+      <p class="text-center text-muted">
+        <a (click)="closeLoginModal()" [routerLink]="[ '/webuy/register' ]"><strong>Register now</strong></a
+        >! It is easy and done in 1 minute and gives you access to special
+        discounts and much more!
+      </p>
+    </div>
+  </div>

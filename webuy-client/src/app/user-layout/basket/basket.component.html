@@ -1,0 +1,195 @@
+<div id="all">
+  <div id="content">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <!-- breadcrumb-->
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li aria-current="page" class="breadcrumb-item active">
+                Shopping cart
+              </li>
+            </ol>
+          </nav>
+        </div>
+        <ng-container *ngIf="products.length > 0; else emptyCart">
+          <div id="basket" class="col-lg-9">
+            <div class="box">
+              <form method="post" action="checkout1.html">
+                <h1>Shopping cart</h1>
+                <p class="text-muted">
+                  You currently have {{ products.length }} item(s) in your cart.
+                </p>
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th colspan="2">Product</th>
+                        <th>Quantity</th>
+                        <th>Unit price</th>
+                        <th>Discount</th>
+                        <th colspan="2">Total</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let product of products; let i = index">
+                        <td>
+                        
+                          <a [routerLink]="[ '/webuy/product-detils', product.id ]"
+                            ><img
+                              [src]="product.productImgUrl.imgurl"
+                              alt="product.productName"
+                          /></a>
+                        </td>
+                        <td>
+                          <a [routerLink]="[ '/webuy/product-detils', product.id ]">{{ product.productName }}</a>
+                        </td>
+                        <td>
+                          <input
+                            type="number"
+                            [value]="product.quantity"
+                            class="form-control"
+                            (change)="calculateTotal()"
+                            min="1"
+                            #qty
+                            class="qty"
+                          />
+                        </td>
+                        <td>{{ product.productPrice }}</td>
+                        <td>&#8377; 0.00</td>
+                        <td
+                          #ttl
+                          class="product-total"
+                          [attr.data-total]="qty.value * product.productPrice"
+                        >
+                          {{
+                            qty.value * product.productPrice
+                              | currency: "INR":"symbol":"1.2-2"
+                          }}
+                        </td>
+                        <td>
+                          <a href="#"><i class="fa fa-trash-o"></i></a>
+                        </td>
+                      </tr>
+                    </tbody>
+                    <tfoot>
+                      <tr>
+                        <th colspan="5">Total</th>
+                        <th colspan="2" class="sub-total">
+                          {{ total | currency: "INR":"symbol":"1.2-2" }}
+                        </th>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div>
+                <!-- /.table-responsive-->
+                <div
+                  class="box-footer d-flex justify-content-between flex-column flex-lg-row"
+                >
+                  <div class="left">
+                    <a class="btn btn-outline-secondary" [routerLink]="['/']"
+                      ><i class="fa fa-chevron-left"></i> Continue shopping</a
+                    >
+                  </div>
+                  <div class="right">
+                    <button
+                      type="button"
+                      class="btn btn-primary"
+                      (click)="checkout()"
+                    >
+                      Proceed to checkout <i class="fa fa-chevron-right"></i>
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <!-- /.box-->
+          </div>
+          <div class="col-lg-3">
+            <div id="order-summary" class="box">
+              <div class="box-header">
+                <h3 class="mb-0">Order summary</h3>
+              </div>
+              <p class="text-muted">
+                Shipping and additional costs are calculated based on the values
+                you have entered.
+              </p>
+              <div class="table-responsive">
+                <table class="table">
+                  <tbody>
+                    <tr>
+                      <td>Order subtotal</td>
+                      <th>{{ total | currency: "INR":"symbol":"1.2-2" }}</th>
+                    </tr>
+                    <tr>
+                      <td>Shipping and handling</td>
+                      <th>
+                        {{ shippingCharges | currency: "INR":"symbol":"1.2-2" }}
+                      </th>
+                    </tr>
+                    <tr class="total">
+                      <td>Total</td>
+                      <th>
+                        {{
+                          shippingCharges + total
+                            | currency: "INR":"symbol":"1.2-2"
+                        }}
+                      </th>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <!-- <div class="box">
+              <div class="box-header">
+                <h4 class="mb-0">Coupon code</h4>
+              </div>
+              <p class="text-muted">
+                If you have a coupon code, please enter it in the box below.
+              </p>
+              <form>
+                <div class="input-group">
+                  <input type="text" class="form-control" /><span
+                    class="input-group-append"
+                  >
+                    <button type="button" class="btn btn-primary">
+                      <i class="fa fa-gift"></i></button
+                  ></span>
+                </div>
+              </form>
+            </div> -->
+          </div>
+        </ng-container>
+        <ng-template #emptyCart>
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card">
+                  <div class="card-body cart">
+                    <div class="col-sm-12 empty-cart-cls text-center">
+                      <img
+                        src="https://i.imgur.com/dCdflKN.png"
+                        width="130"
+                        height="130"
+                        class="img-fluid mb-4 mr-3"
+                      />
+                      <h3><strong>Your Cart is Empty</strong></h3>
+                      <h4>Add something to make me happy :)</h4>
+                      <a
+                        href="#"
+                        class="btn btn-primary cart-btn-transform m-3"
+                        data-abc="true"
+                        >Continue Shopping</a
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,236 @@
+<div id="all">
+  <div id="content">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <!-- breadcrumb-->
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li aria-current="page" class="breadcrumb-item active">
+                Checkout - Address
+              </li>
+            </ol>
+          </nav>
+        </div>
+        <div id="checkout" class="col-lg-9">
+          <div class="box-check">
+            <form id="msform" [formGroup]="personalInformationForm">
+              <!-- progressbar -->
+              <ul id="progressbar">
+                <li class="active" id="account">
+                  <strong>Information</strong>
+                </li>
+                <li id="payment"><strong>Payment</strong></li>
+                <li id="confirm"><strong>Finish</strong></li>
+              </ul>
+              <!-- fieldsets -->
+              <fieldset>
+                <div class="form-card">
+                  <h2 class="fs-title">Personal Information</h2>
+                  <div class="content py-3">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <input
+                            id="firstname"
+                            type="text"
+                            class="form-control"
+                            placeholder="Firstname"
+                            formControlName="firstName"
+                            (keypress)="commonUtils.isAlphabet($event)"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <input
+                            id="lastname"
+                            type="text"
+                            class="form-control"
+                            placeholder="Lastname"
+                            formControlName="lastName"
+                            (keypress)="commonUtils.isAlphabet($event)"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /.row-->
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <input
+                            id="street"
+                            type="text"
+                            class="form-control"
+                            placeholder="Street"
+                            formControlName="street"
+                            (keypress)="commonUtils.isAlphabet($event)"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /.row-->
+                    <div class="row">
+                      <div class="col-md-6 col-lg-3">
+                        <div class="form-group">
+                          <input
+                            id="city"
+                            type="text"
+                            class="form-control"
+                            placeholder="District"
+                            formControlName="district"
+                            (keypress)="commonUtils.isAlphabet($event)"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-md-6 col-lg-3">
+                        <div class="form-group">
+                          <input
+                            id="zip"
+                            type="text"
+                            class="form-control"
+                            placeholder="Zip"
+                            formControlName="zip"
+                            (keypress)="commonUtils.isNumber($event)"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-md-6 col-lg-3">
+                        <div class="form-group">
+                          <input
+                            id="state"
+                            type="text"
+                            class="form-control"
+                            placeholder="State"
+                            formControlName="state"
+                            (keypress)="commonUtils.isAlphabet($event)"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-md-6 col-lg-3">
+                        <div class="form-group">
+                          <input
+                            id="country"
+                            type="text"
+                            class="form-control"
+                            placeholder="Country"
+                            formControlName="country"
+                            (keypress)="commonUtils.isAlphabet($event)"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <input
+                            id="phone"
+                            type="text"
+                            class="form-control"
+                            placeholder="Mobile No."
+                            formControlName="mobile"
+                            (keypress)="commonUtils.isNumber($event)"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /.row-->
+                  </div>
+                </div>
+                <div class="box-footer d-flex justify-content-end">
+                  <button
+                    type="button"
+                    name="next"
+                    class="btn btn-primary next"
+                    [disabled]="this.personalInformationForm.invalid"
+                    (click)="pay(23)"
+                  >
+                    Continue to Payment<i class="fa fa-chevron-right"></i>
+                  </button>
+                </div>
+              </fieldset>
+              <fieldset>
+                <div class="form-card">
+                  <h2 class="fs-title">Payment Information</h2>
+                  <div class="radio-group d-flex justify-content-center">
+                    <div class="radio" data-value="credit">
+                      <img
+                        src="https://i.imgur.com/XzOzVHZ.jpg"
+                        width="200px"
+                        height="100px"
+                      />
+                    </div>
+                    <br />
+                  </div>
+                </div>
+                <div class="box-footer d-flex justify-content-between">
+                  <button
+                    
+                    type="button"
+                    class="btn btn-outline-secondary next final"
+                    name="next"
+                  >
+                    <i class="fa fa-chevron-left"></i>Back to Personal
+                  </button>
+                </div>
+              </fieldset>
+              <fieldset>
+                <div class="form-card">
+                  <h2 class="fs-title text-center">Thankyou for choosing us!</h2>
+                  <br /><br />
+                  <div class="row ">
+                    <div class="col d-flex justify-content-center">
+                      <img
+                        src="../../../../assets/img/order-confirm.png"
+                        class="fit-image"
+                      />
+                    </div>
+                  </div>
+                  <br /><br />
+                  <div class="row justify-content-center">
+                    <div class="col-7 text-center">
+                      <h5>Your order has been placed and being processed.</h5>
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+            </form>
+          </div>
+          <!-- /.box-->
+        </div>
+        <!-- /.col-lg-9-->
+        <div class="col-lg-3">
+          <div id="order-summary" class="card">
+            <div class="card-header">
+              <h3 class="mt-4 mb-4">Order summary</h3>
+            </div>
+            <div class="card-body">
+              <p class="text-muted">
+                Shipping and additional costs are calculated based on the values
+                you have entered.
+              </p>
+              <div class="table-responsive">
+                <table class="table">
+                  <tbody>
+                    <tr>
+                      <td>Order subtotal</td>
+                      <th>{{ subTotal | currency: "INR":"symbol":"1.2-2" }}</th>
+                    </tr>
+                    <tr>
+                      <td>Shipping and handling</td>
+                      <th>{{ shipping | currency: "INR":"symbol":"1.2-2" }}</th>
+                    </tr>
+                    <tr class="total">
+                      <td>Total</td>
+                      <th>{{ total | currency: "INR":"symbol":"1.2-2" }}</th>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /.col-lg-3-->
+      </div>
+    </div>
+  </div>
+</div>
